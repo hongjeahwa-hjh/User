@@ -54,6 +54,7 @@ public class UserController {
     @PostMapping("/signup")     // http://localhost:8095/api/user/signup
     public ResponseEntity<UserApiResponse<String>> signup(@RequestBody SignupUserDTO signupDTO) {
         try {
+            System.out.println("*** /signup 엔드포인트 호출됨 ***");
             // 이메일 정보가 누락되었다면 에러 코드를 반환한다.
             if (signupDTO.getEmail() == null || signupDTO.getEmail().isEmpty()) {
                 UserApiResponse<String> response = new UserApiResponse<>(
@@ -209,8 +210,8 @@ public class UserController {
             return ResponseEntity.status(401).body("로그인이 필요합니다.");
         }
         // 로그인 사용자
-        String data = "사용자 데이터 : " + userDTO.getNick_name() + "님, 반갑습니다.";
-        return ResponseEntity.ok(new UserApiResponse<String>("success", "로그인 사용자", data));
+        // String data = "사용자 데이터 : " + userDTO.getNick_name() + "님, 반갑습니다.";
+        return ResponseEntity.ok(new UserApiResponse<LoginUserResponseDTO>("success", "로그인 사용자", userDTO));
     }
 
 
