@@ -193,6 +193,16 @@ public class UserController {
 
         }
     }
+
+    /**
+     * 로그아웃 요청을 처리하는 메서드.
+     *
+     * <p>현재 사용자의 세션을 무효화하여(초기화하여) 로그아웃을 수행한다.
+     * 세션이 종료되면 인증 정보 및 사용자 관련 세션 데이터가 모두 삭제된다.</p>
+     *
+     * @param session 현재 사용자 세션 객체(HttpSession)
+     * @return 로그아웃 성공 응답을 포함한 ResponseEntity
+     */
     // logout : 로그아웃 리퀘스트 처리부
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
@@ -200,6 +210,19 @@ public class UserController {
         return ResponseEntity.ok(new UserApiResponse<>("success", "로그아웃되었습니다.", null));
     }
 
+    /**
+     * 현재 사용자 세션 상태를 확인하는 메서드.
+     *
+     * <p>세션은 상태(Stateful)를 유지하는 객체로, 로그인 여부를 확인하기 위해
+     * 세션에 저장된 {@code loginUser} 정보를 조회한다.</p>
+     *
+     * <p>세션에 로그인 정보가 존재하지 않으면 HTTP 401(Unauthorized) 상태 코드와 함께
+     * "로그인이 필요합니다." 메시지를 반환한다.
+     * 로그인되어 있을 경우, 사용자 정보를 포함한 성공 응답을 반환한다.</p>
+     *
+     * @param session 현재 사용자 세션(HttpSession)
+     * @return 세션 상태에 따른 응답(ResponseEntity)
+     */
     // session은 상태(state) 객체이다  <===> stateless
     // session : 세션 확인(로그인 확인) 처리부
     @GetMapping("/session")

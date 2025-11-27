@@ -59,6 +59,16 @@ public class User {
         ROLE_USER
     }
 
+    /**
+     * SignupUserDTO 객체를 User 엔티티로 변환하는 정적 메서드.
+     *
+     * <p>회원가입 요청에서 전달된 DTO 데이터를 기반으로
+     * User 엔티티 객체를 생성하고 필드를 매핑한다.
+     * 변환된 User 객체는 DB 저장 또는 인증 관련 로직에서 사용될 수 있다.</p>
+     *
+     * @param dto 회원가입 정보를 담고 있는 SignupUserDTO
+     * @return dto 정보를 기반으로 생성된 User 엔티티 객체
+     */
     public static User fromDTO(SignupUserDTO dto){
         User user = new User();
         user.setEmail(dto.getEmail());
@@ -68,6 +78,16 @@ public class User {
         return user;
     }
 
+    /**
+     * User 엔티티를 LoginUserResponseDTO로 변환하는 정적 메서드.
+     *
+     * <p>로그인된 사용자 정보를 클라이언트에 전달하기 위해
+     * User 엔티티의 주요 데이터(id, email, nickName)를
+     * LoginUserResponseDTO로 매핑하여 반환한다.</p>
+     *
+     * @param user 로그인된 사용자 정보를 담고 있는 User 엔티티
+     * @return User 엔티티 정보를 기반으로 생성된 LoginUserResponseDTO 객체
+     */
     public static LoginUserResponseDTO toLoginUserResponse(User user) {
         LoginUserResponseDTO dto = new LoginUserResponseDTO();
         dto.setId(user.getId());
